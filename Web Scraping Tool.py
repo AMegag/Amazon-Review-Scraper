@@ -1,7 +1,7 @@
-from xml.dom.minidom import Element
-from numpy import place
-from selenium import webdriver
+# from xml.dom.minidom import Element
 from time import sleep
+from selenium import webdriver
+# from numpy import place
 from bs4 import BeautifulSoup
 import pandas as pd
 
@@ -10,11 +10,10 @@ ASIN = ['B00CH9QWOU'] #Alter the ASIN depending upon your product. You may also 
 sleep(1)
 
 #we creating empty list for storing reviews
-reviewlist=[] 
+reviewlist = []
 
 
 # for each ASIN in list we are iterating following loop
-
 for y in ASIN:
     #url here
     url = 'https://www.amazon.com/product-reviews/'+ y +'/ref=cm_cr_dp_d_show_all_btm?ie=UTF8&reviewerType=all_reviews'
@@ -26,19 +25,19 @@ for y in ASIN:
     driver.get(url)
     sleep(3)
     #getting product url and finding price
-    purl=driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[2]/a')
+    purl = driver.find_element_by_xpath('/html/body/div[1]/div[3]/div/div[2]/a')
     purl.click()
     sleep(3)
     try:
-       price=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[9]/div[4]/div[4]/div[10]/div/div[2]/div[2]/div/table/tbody/tr/td[2]/span/span[1]')
-       p=price.text
+       price = driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[9]/div[4]/div[4]/div[10]/div/div[2]/div[2]/div/table/tbody/tr/td[2]/span/span[1]')
+       p = price.text
        try:
-           price=driver.find_element_by_xpath('//*[@id="corePrice_feature_div"]/div/span/span[1]')
-           p=price.text
+           price = driver.find_element_by_xpath('//*[@id="corePrice_feature_div"]/div/span/span[1]')
+           p = price.text
        except:
-           p="NA"
+           p = "NA"
     except:
-        p='NA'
+        p = 'NA'
     #fetching reviews
     driver.get(url)      
     while range(1,999): 
@@ -75,12 +74,10 @@ for y in ASIN:
         if not soup.find('li', {'class': 'a-disabled a-last'}):
                 pass
         else:
-                break
-
-        
+                break       
        # clicking next button on reviews page
         try:
-           next= driver.find_element_by_class_name('a-last')
+           next = driver.find_element_by_class_name('a-last')
            next.click() 
            sleep(2)
         except:
@@ -91,7 +88,5 @@ for y in ASIN:
 df = pd.DataFrame(reviewlist)
 df.to_csv('sv.csv', index=False)
 
-    
+# print('Finish') 
 print('Fin.')
-
-# print('Finish')
