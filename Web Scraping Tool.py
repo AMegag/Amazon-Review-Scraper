@@ -5,8 +5,8 @@ from time import sleep
 from bs4 import BeautifulSoup
 import pandas as pd
 
-# ys is dictonary whcih contains ASIN numbers the format should be ys=['B00JD242MS','B078KZ6LSQ']
-ys = ['B00CH9QWOU']
+# ASIN is dictonary whcih contains ASIN numbers the format should be ASIN=['B00JD242MS','B078KZ6LSQ']
+ASIN = ['B00CH9QWOU'] #Alter the ASIN depending upon your product. You may also add multiple products
 sleep(1)
 
 #we creating empty list for storing reviews
@@ -15,14 +15,14 @@ reviewlist=[]
 
 # for each ASIN in list we are iterating following loop
 
-for y in ys:
+for y in ASIN:
     #url here
     url = 'https://www.amazon.com/product-reviews/'+ y +'/ref=cm_cr_dp_d_show_all_btm?ie=UTF8&reviewerType=all_reviews'
     sleep(2)
 #webdriver code
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    driver = webdriver.Chrome('C:\webdrivers\chromedriver.exe', options=options)
+    driver = webdriver.Chrome('C:\webdrivers\chromedriver.exe', options=options) #Alter depending on where you've saved your driver/ Mac v Windows etc etc.
     driver.get(url)
     sleep(3)
     #getting product url and finding price
